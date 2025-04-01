@@ -12,7 +12,7 @@ void TransUptoLower(char *s){
     }
 }
 
-char* ClearNumber(char *s){
+void ClearNumber(char *s){
     char *store = malloc(sizeof(char) * strlen(s));
     if (store == NULL){
         printf("分配内存错误");
@@ -26,7 +26,7 @@ char* ClearNumber(char *s){
             cnt += 1;
         }
     }
-    return store;
+    s = store;
 }
 
 int isParlindromicString(char *s){
@@ -34,18 +34,38 @@ int isParlindromicString(char *s){
     for (int i = 0, j = strlen(s) - 1; i < strlen(s) && j >= 0; i++, j--){
         ch[i] = s[j];
     }
+    ch[strlen(s)] = '\0';
     if(strcmp(s,ch) == 0){
         return 1;
     }
     return 0;
 }
+
+void ClearSpace(char *s){
+    char *store = malloc(sizeof(char) * strlen(s));
+    if (store == NULL){
+        printf("分配内存错误");
+        exit(1);
+    }
+    int cnt = 0;
+    for (int i = 0; i < strlen(s); i++){
+        char *ch = &s[i];
+        if (!(*ch ==' ')) {
+            store[cnt] = *ch;
+            cnt += 1;
+        }
+    }
+    s = store;
+}
+
 int main(){
     char a[100];
-    char *result = ClearNumber(a);
     int flag;
     scanf("%99s",a);
-    TransUptoLower(result);
-    flag = isParlindromicString(result); 
+    ClearNumber(a);
+    ClearSpace(a);
+    TransUptoLower(a);
+    flag = isParlindromicString(a); 
     if(flag){
         printf("true");
     } else {
